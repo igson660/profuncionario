@@ -10,8 +10,9 @@ import {
   AttendanceStatus,
   AttendanceSummary,
 } from "@/types/attendance";
-import { RefreshCw, BookOpen } from "lucide-react";
+import { RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import Header from "@/components/Header";
 
 export default function Home() {
   const [selectedCourseId, setSelectedCourseId] = useState<string>(
@@ -29,11 +30,10 @@ export default function Home() {
   const [selectedPolo, setSelectedPolo] = useState<string>(
     COURSES_DATA[0].polos[0]
   );
-  const [selectedProfessor, setSelectedProfessor] = useState<string>(
-    COURSES_DATA[0].professores[0]
+
+  const [selectedMediador, setSelectedMediador] = useState<string>(
+    COURSES_DATA[0].mediadores[0]
   );
-  const [mediadorPresencial, setMediadorPresencial] =
-    useState<string>("Nome do Mediador");
 
   const [date, setDate] = useState<string>("");
   const [description, setDescription] = useState<string>("");
@@ -47,13 +47,11 @@ export default function Home() {
 
   const currentCourse = COURSES_DATA.find(c => c.id === selectedCourseId);
 
-  // Initialize with current date
   useEffect(() => {
-    const today = new Date().toISOString().split("T")[0];
+    const today = new Date().toLocaleDateString("pt-BR");
     setDate(today);
   }, []);
 
-  // Initialize students when course changes
   useEffect(() => {
     if (currentCourse) {
       const initialStudents: StudentAttendance[] = currentCourse.alunos.map(
@@ -66,7 +64,6 @@ export default function Home() {
     }
   }, [selectedCourseId, currentCourse]);
 
-  // Update summary whenever students change
   useEffect(() => {
     const newSummary: AttendanceSummary = {
       total: students.length,
@@ -85,7 +82,7 @@ export default function Home() {
       setSelectedComponente(newCourse.componentes[0]);
       setSelectedPeriodo(newCourse.periodos[0]);
       setSelectedPolo(newCourse.polos[0]);
-      setSelectedProfessor(newCourse.professores[0]);
+      setSelectedMediador(newCourse.mediadores[0]);
     }
   };
 
@@ -113,40 +110,14 @@ export default function Home() {
     turma: selectedTurma,
     componenteCurricular: selectedComponente,
     periodo: selectedPeriodo,
-    cargaHoraria: "120h",
-    professorFormador: selectedProfessor,
-    mediadorPresencial: mediadorPresencial,
+    cargaHoraria: "60h",
+    mediador: selectedMediador,
     poloMunicipio: selectedPolo,
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100">
-      {/* Header com Gradiente */}
-      <header className="relative overflow-hidden">
-        <div
-          className="absolute inset-0 opacity-10"
-          style={{
-            backgroundImage: `linear-gradient(135deg, ${COLORS.primary} 0%, ${COLORS.accent} 100%)`,
-          }}
-        />
-        <div
-          className="relative py-12 px-4 text-white"
-          style={{ backgroundColor: COLORS.primary }}
-        >
-          <div className="container mx-auto">
-            <div className="flex items-center gap-3 mb-2">
-              <BookOpen size={36} className="text-yellow-300" />
-              <h1 className="text-4xl md:text-5xl font-bold">
-                Sistema de Frequência
-              </h1>
-            </div>
-            <p className="text-white/90 text-lg md:text-xl">
-              Programa Profuncionário
-            </p>
-            <div className="mt-4 h-1 w-24 bg-yellow-300 rounded-full" />
-          </div>
-        </div>
-      </header>
+      <Header />
 
       {/* Main Content */}
       <main className="container mx-auto px-4 py-12 max-w-6xl">
@@ -171,13 +142,13 @@ export default function Home() {
               selectedComponente={selectedComponente}
               selectedPeriodo={selectedPeriodo}
               selectedPolo={selectedPolo}
-              selectedProfessor={selectedProfessor}
+              selectedMediador={selectedMediador}
               onCourseChange={handleCourseChange}
               onTurmaChange={setSelectedTurma}
               onComponenteChange={setSelectedComponente}
               onPeriodoChange={setSelectedPeriodo}
               onPoloChange={setSelectedPolo}
-              onProfessorChange={setSelectedProfessor}
+              onMediadorChange={setSelectedMediador}
             />
           </section>
 

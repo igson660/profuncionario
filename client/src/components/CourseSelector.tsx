@@ -4,10 +4,10 @@ import {
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue
+  SelectValue,
 } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
-import { COLORS, COURSES_DATA } from "@/constants/constants";
+import { COURSES_DATA } from "@/constants/constants";
 
 interface CourseSelectorProps {
   selectedCourseId: string;
@@ -15,13 +15,13 @@ interface CourseSelectorProps {
   selectedComponente: string;
   selectedPeriodo: string;
   selectedPolo: string;
-  selectedProfessor: string;
+  selectedMediador: string;
   onCourseChange: (courseId: string) => void;
   onTurmaChange: (turma: string) => void;
   onComponenteChange: (componente: string) => void;
   onPeriodoChange: (periodo: string) => void;
   onPoloChange: (polo: string) => void;
-  onProfessorChange: (professor: string) => void;
+  onMediadorChange: (mediador: string) => void;
 }
 
 export function CourseSelector({
@@ -30,15 +30,15 @@ export function CourseSelector({
   selectedComponente,
   selectedPeriodo,
   selectedPolo,
-  selectedProfessor,
+  selectedMediador,
   onCourseChange,
   onTurmaChange,
   onComponenteChange,
   onPeriodoChange,
   onPoloChange,
-  onProfessorChange
+  onMediadorChange,
 }: CourseSelectorProps) {
-  const currentCourse = COURSES_DATA.find((c) => c.id === selectedCourseId);
+  const currentCourse = COURSES_DATA.find(c => c.id === selectedCourseId);
 
   if (!currentCourse) return null;
 
@@ -47,18 +47,21 @@ export function CourseSelector({
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {/* Curso */}
         <div className="group">
-          <Label htmlFor="course" className="font-semibold text-gray-700 text-sm uppercase tracking-wide">
+          <Label
+            htmlFor="course"
+            className="font-semibold text-gray-700 text-sm uppercase tracking-wide"
+          >
             Curso *
           </Label>
           <Select value={selectedCourseId} onValueChange={onCourseChange}>
-            <SelectTrigger 
-              id="course" 
+            <SelectTrigger
+              id="course"
               className="mt-3 border-2 border-gray-200 hover:border-gray-300 focus:border-gray-400 transition-colors h-11 rounded-lg"
             >
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              {COURSES_DATA.map((course) => (
+              {COURSES_DATA.map(course => (
                 <SelectItem key={course.id} value={course.id}>
                   {course.nome}
                 </SelectItem>
@@ -69,18 +72,21 @@ export function CourseSelector({
 
         {/* Turma */}
         <div className="group">
-          <Label htmlFor="turma" className="font-semibold text-gray-700 text-sm uppercase tracking-wide">
+          <Label
+            htmlFor="turma"
+            className="font-semibold text-gray-700 text-sm uppercase tracking-wide"
+          >
             Turma *
           </Label>
           <Select value={selectedTurma} onValueChange={onTurmaChange}>
-            <SelectTrigger 
-              id="turma" 
+            <SelectTrigger
+              id="turma"
               className="mt-3 border-2 border-gray-200 hover:border-gray-300 focus:border-gray-400 transition-colors h-11 rounded-lg"
             >
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              {currentCourse.turmas.map((turma) => (
+              {currentCourse.turmas.map(turma => (
                 <SelectItem key={turma} value={turma}>
                   {turma}
                 </SelectItem>
@@ -91,18 +97,21 @@ export function CourseSelector({
 
         {/* Componente Curricular */}
         <div className="group">
-          <Label htmlFor="componente" className="font-semibold text-gray-700 text-sm uppercase tracking-wide">
+          <Label
+            htmlFor="componente"
+            className="font-semibold text-gray-700 text-sm uppercase tracking-wide"
+          >
             Componente *
           </Label>
           <Select value={selectedComponente} onValueChange={onComponenteChange}>
-            <SelectTrigger 
-              id="componente" 
+            <SelectTrigger
+              id="componente"
               className="mt-3 border-2 border-gray-200 hover:border-gray-300 focus:border-gray-400 transition-colors h-11 rounded-lg"
             >
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              {currentCourse.componentes.map((componente) => (
+              {currentCourse.componentes.map(componente => (
                 <SelectItem key={componente} value={componente}>
                   {componente}
                 </SelectItem>
@@ -113,18 +122,21 @@ export function CourseSelector({
 
         {/* Período */}
         <div className="group">
-          <Label htmlFor="periodo" className="font-semibold text-gray-700 text-sm uppercase tracking-wide">
+          <Label
+            htmlFor="periodo"
+            className="font-semibold text-gray-700 text-sm uppercase tracking-wide"
+          >
             Período *
           </Label>
           <Select value={selectedPeriodo} onValueChange={onPeriodoChange}>
-            <SelectTrigger 
-              id="periodo" 
+            <SelectTrigger
+              id="periodo"
               className="mt-3 border-2 border-gray-200 hover:border-gray-300 focus:border-gray-400 transition-colors h-11 rounded-lg"
             >
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              {currentCourse.periodos.map((periodo) => (
+              {currentCourse.periodos.map(periodo => (
                 <SelectItem key={periodo} value={periodo}>
                   {periodo}
                 </SelectItem>
@@ -135,18 +147,21 @@ export function CourseSelector({
 
         {/* Polo/Município */}
         <div className="group">
-          <Label htmlFor="polo" className="font-semibold text-gray-700 text-sm uppercase tracking-wide">
+          <Label
+            htmlFor="polo"
+            className="font-semibold text-gray-700 text-sm uppercase tracking-wide"
+          >
             Polo/Município *
           </Label>
           <Select value={selectedPolo} onValueChange={onPoloChange}>
-            <SelectTrigger 
-              id="polo" 
+            <SelectTrigger
+              id="polo"
               className="mt-3 border-2 border-gray-200 hover:border-gray-300 focus:border-gray-400 transition-colors h-11 rounded-lg"
             >
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              {currentCourse.polos.map((polo) => (
+              {currentCourse.polos.map(polo => (
                 <SelectItem key={polo} value={polo}>
                   {polo}
                 </SelectItem>
@@ -157,20 +172,23 @@ export function CourseSelector({
 
         {/* Professor Formador */}
         <div className="group">
-          <Label htmlFor="professor" className="font-semibold text-gray-700 text-sm uppercase tracking-wide">
+          <Label
+            htmlFor="professor"
+            className="font-semibold text-gray-700 text-sm uppercase tracking-wide"
+          >
             Professor *
           </Label>
-          <Select value={selectedProfessor} onValueChange={onProfessorChange}>
-            <SelectTrigger 
-              id="professor" 
+          <Select value={selectedMediador} onValueChange={onMediadorChange}>
+            <SelectTrigger
+              id="professor"
               className="mt-3 border-2 border-gray-200 hover:border-gray-300 focus:border-gray-400 transition-colors h-11 rounded-lg"
             >
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              {currentCourse.professores.map((professor) => (
-                <SelectItem key={professor} value={professor}>
-                  {professor}
+              {currentCourse.mediadores.map(mediador => (
+                <SelectItem key={mediador} value={mediador}>
+                  {mediador}
                 </SelectItem>
               ))}
             </SelectContent>

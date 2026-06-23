@@ -10,8 +10,7 @@ interface CourseInfo {
   componenteCurricular: string;
   periodo: string;
   cargaHoraria: string;
-  professorFormador: string;
-  mediadorPresencial: string;
+  mediador: string;
   poloMunicipio: string;
 }
 
@@ -28,7 +27,7 @@ export function PdfGenerator({
   description,
   students,
   isValid,
-  courseInfo
+  courseInfo,
 }: PdfGeneratorProps) {
   const handleGeneratePDF = () => {
     if (!isValid) {
@@ -47,7 +46,7 @@ export function PdfGenerator({
         className="h-12 font-semibold text-white text-base gap-2 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 disabled:scale-100 disabled:opacity-60 rounded-lg"
         style={{
           backgroundColor: isValid ? COLORS.primary : "#ccc",
-          cursor: isValid ? "pointer" : "not-allowed"
+          cursor: isValid ? "pointer" : "not-allowed",
         }}
       >
         <FileDown size={20} />
